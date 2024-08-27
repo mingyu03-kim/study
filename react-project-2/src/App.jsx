@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
 import List from "./components/List";
+import Exam from "./components/Exam";
 import "./App.css";
 
 const mockData = [
@@ -41,6 +42,7 @@ function App() {
         <Header />
         <Editor onCreate={onCreate} />
         <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
+        <Exam />
       </div>
     </>
   );
