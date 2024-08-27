@@ -28,7 +28,7 @@ function App() {
       <div className="App">
         <Header />
         <Editor onCreate={onCreate} />
-        <List list={todos} />
+        <List todos={todos} />
       </div>
     </>
   );
