@@ -29,14 +29,16 @@ const TodoItem = ({ todo, onUpdate, onDelete }) => {
 // => memo를 적용한다고 해서 메모가 되지 않는다.
 // 1. useCallback
 // 2. callback을 두번째 인수로 전달한다.
-export default memo(TodoItem, (prevProps, nextProps) => {
-  // 반환값에 따라 props의 변경 여부를 판단한다.
-  // true return => props가 변경되지 않았으므로 리렌더링 X
-  // false => props가 변경되었다고 판단 => 리렌더링
-  return (
-    prevProps.todo.id === nextProps.todo.id &&
-    prevProps.todo.isDone === nextProps.todo.isDone &&
-    prevProps.todo.content === nextProps.todo.content &&
-    prevProps.todo.date === nextProps.todo.date
-  );
-});
+// export default memo(TodoItem, (prevProps, nextProps) => {
+//   // 반환값에 따라 props의 변경 여부를 판단한다.
+//   // true return => props가 변경되지 않았으므로 리렌더링 X
+//   // false => props가 변경되었다고 판단 => 리렌더링
+//   return (
+//     prevProps.todo.id === nextProps.todo.id &&
+//     prevProps.todo.isDone === nextProps.todo.isDone &&
+//     prevProps.todo.content === nextProps.todo.content &&
+//     prevProps.todo.date === nextProps.todo.date
+//   );
+// });
+
+export default memo(TodoItem);
