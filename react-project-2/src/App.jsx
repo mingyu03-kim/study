@@ -1,4 +1,10 @@
-import { useState, useRef, useReducer, useCallback } from "react";
+import {
+  useState,
+  useRef,
+  useReducer,
+  useCallback,
+  createContext,
+} from "react";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
 import List from "./components/List";
@@ -9,6 +15,10 @@ const mockData = [
   { id: 1, isDone: false, content: "React 2", date: new Date().getTime() },
   { id: 2, isDone: false, content: "React 3", date: new Date().getTime() },
 ];
+
+// App 내부에 선언 시, 렌더링 될때마다 계속 선언된다.
+// 그럴 필요는 없으므로, 컴포넌트의 외부에 선언하는 것이 나음.
+export const TodoContext = createContext();
 
 function reducer(state, action) {
   switch (action.type) {
@@ -88,8 +98,17 @@ function App() {
     <>
       <div className="App">
         <Header />
-        <Editor onCreate={onCreate} />
-        <List todos={todos} onUpdate={onUpdate} onDelete={onDelete} />
+        <TodoContext.Provider
+          value={{
+            todos,
+            onCreate,
+            onUpdate,
+            onDelete,
+          }}
+        >
+          <Editor />
+          <List />
+        </TodoContext.Provider>
       </div>
     </>
   );

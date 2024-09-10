@@ -1,7 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import "./Editor.css";
+import { TodoContext } from "../App";
 
-const Editor = ({ onCreate }) => {
+const Editor = () => {
+  // 부모에서 export후 해당 context를 가져온다.
+  const { onCreate } = useContext(TodoContext);
+
   const [content, setContent] = useState("");
   const contentRef = useRef();
   const onChangeContent = (e) => {
