@@ -1,10 +1,10 @@
 import { useState, useRef, useContext } from "react";
 import "./Editor.css";
-import { TodoContext } from "../App";
+import { TodoDispatchContext } from "../App";
 
 const Editor = () => {
   // 부모에서 export후 해당 context를 가져온다.
-  const { onCreate } = useContext(TodoContext);
+  const { onCreate } = useContext(TodoDispatchContext);
 
   const [content, setContent] = useState("");
   const contentRef = useRef();

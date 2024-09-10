@@ -4,6 +4,7 @@ import {
   useReducer,
   useCallback,
   createContext,
+  useMemo,
 } from "react";
 import Header from "./components/Header";
 import Editor from "./components/Editor";
@@ -18,7 +19,8 @@ const mockData = [
 
 // App 내부에 선언 시, 렌더링 될때마다 계속 선언된다.
 // 그럴 필요는 없으므로, 컴포넌트의 외부에 선언하는 것이 나음.
-export const TodoContext = createContext();
+export const TodoStateContext = createContext();
+export const TodoDispatchContext = createContext();
 
 function reducer(state, action) {
   switch (action.type) {
@@ -94,21 +96,20 @@ function App() {
     });
   }, []);
 
+  const memoizedDispatch = useMemo(() => {
+    return { onCreate, onUpdate, onDelete };
+  }, []);
+
   return (
     <>
       <div className="App">
         <Header />
-        <TodoContext.Provider
-          value={{
-            todos,
-            onCreate,
-            onUpdate,
-            onDelete,
-          }}
-        >
-          <Editor />
-          <List />
-        </TodoContext.Provider>
+        <TodoStateContext.Provider value={todos}>
+          <TodoDispatchContext.Provider value={memoizedDispatch}>
+            <Editor />
+            <List />
+          </TodoDispatchContext.Provider>
+        </TodoStateContext.Provider>
       </div>
     </>
   );
