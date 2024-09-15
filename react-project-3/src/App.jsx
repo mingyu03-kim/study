@@ -1,67 +1,115 @@
 import "./App.css";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { useReducer, useRef, createContext } from "react";
+
 import Home from "./pages/Home";
 import Diary from "./pages/Diary";
 import New from "./pages/New";
 import NotFound from "./pages/NotFound";
-import Button from "./components/Button";
-import Header from "./components/Header";
+import Edit from "./pages/Edit";
 
-import { getEmotionImage } from "./util/get-emotion-image";
-// 1. "/" : 모든 일기 조회하는 홈페이지
-// 2. /new : 새로운 일기 작성
-// 3. /diary : 일기 상세 조회 페이지
+const mockData = [
+  {
+    id: 1,
+    createdDate: new Date().getTime(),
+    emotionId: 1,
+    content: "1번 일기다.",
+  },
+  {
+    id: 2,
+    createdDate: new Date().getTime(),
+    emotionId: 2,
+    content: "2번 일기다.",
+  },
+  {
+    id: 3,
+    createdDate: new Date().getTime(),
+    emotionId: 3,
+    content: "3번 일기다.",
+  },
+];
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "CREATE":
+      return [...state, action.data];
+    case "UPDATE":
+      return state.map((item) =>
+        String(item.id) === String(action.data.id) ? action.data : item
+      );
+    case "DELETE":
+      return state.filter((item) => String(item.id) !== String(action.id));
+    default:
+      return state;
+  }
+  return state;
+}
+
+const DiaryStateContext = createContext();
+const DiaryDispatchContext = createContext();
+
 function App() {
-  // navigate로 이동할 수도 있다. (vue의 router.push 방식으로 보여짐)
-  const nav = useNavigate();
-  const onClickButton = () => {
-    nav("/new");
+  const [data, dispatch] = useReducer(reducer, mockData);
+  const idRef = useRef(1);
+  // 일기 추가
+  const onCreate = (createdDate, emotionId, content) => {
+    dispatch({
+      type: "CREATE",
+      data: {
+        createdDate,
+        emotionId,
+        content,
+        id: idRef.current++,
+      },
+    });
   };
+
+  // 수정
+  const onUpdate = (id, createdDate, emotionId, content) => {
+    dispatch({
+      type: "UPDATE",
+      data: {
+        id,
+        createdDate,
+        emotionId,
+        content,
+      },
+    });
+  };
+
+  // 삭제
+  const onDelete = (id) => {
+    dispatch({
+      type: "DELETE",
+      id,
+    });
+  };
+
   return (
     <>
-      {/* public 폴더에 있는 이미지들.
-      그러나 여기에 이미지를 넣으면, 브라우저에서 캐싱을 하지 못한다. 
-      따라서 이미지가 많지 않을 경우, assets 폴더에 저장하자.*/}
-      {/* <div>
-        <img src="/emotion1.png" />
-        <img src="/emotion2.png" />
-        <img src="/emotion3.png" />
-        <img src="/emotion4.png" />
-        <img src="/emotion5.png" />
-      </div> */}
+      <button onClick={() => onCreate(new Date().getTime(), 1, "추가테스트")}>
+        추가테스트
+      </button>
 
-      {/* 직접 import한 이미지들.
-      브라우저에서 캐싱을 할 수 있도록, import를 하는 것이 낫다. 
-      그러나 이미지가 너무 많을 경우, 그냥 public에서 관리하는 것이 나을 수도 있다.*/}
-
-      <Header
-        title={"Header"}
-        leftChild={<Button text={"left"} />}
-        rightChild={<Button text={"right"} />}
-      />
-
-      <Button
-        text={"123"}
-        type={"default"}
-        onClick={() => console.log("asdfasdf")}
-      />
-      <Button
-        text={"123"}
-        type={"positive"}
-        onClick={() => console.log("asdfasdf")}
-      />
-      <Button
-        text={"123"}
-        type={"negative"}
-        onClick={() => console.log("asdfasdf")}
-      />
-
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/new" element={<New />} />
-        <Route path="/diary/:id" element={<Diary />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <button
+        onClick={() =>
+          onUpdate(1, new Date().getTime(), 1234, "1234수정테스트")
+        }
+      >
+        수정
+      </button>
+      <button onClick={() => onDelete(1)}>삭제</button>
+      <DiaryStateContext.Provider value={data}>
+        <DiaryDispatchContext.Provider value={{ onCreate, onUpdate, onDelete }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/new" element={<New />} />
+            <Route path="/diary/:id" element={<Diary />} />
+            <Route path="/edit/:id" element={<Edit />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </DiaryDispatchContext.Provider>
+      </DiaryStateContext.Provider>
     </>
   );
 }
