@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Diary from "./pages/Diary";
 import New from "./pages/New";
 import NotFound from "./pages/NotFound";
+import Button from "./components/Button";
+import Header from "./components/Header";
 
 import { getEmotionImage } from "./util/get-emotion-image";
 // 1. "/" : 모든 일기 조회하는 홈페이지
@@ -31,24 +33,29 @@ function App() {
       {/* 직접 import한 이미지들.
       브라우저에서 캐싱을 할 수 있도록, import를 하는 것이 낫다. 
       그러나 이미지가 너무 많을 경우, 그냥 public에서 관리하는 것이 나을 수도 있다.*/}
-      <div>
-        <img src={getEmotionImage(1)} />
-        <img src={getEmotionImage(2)} />
-        <img src={getEmotionImage(3)} />
-        <img src={getEmotionImage(4)} />
-        <img src={getEmotionImage(5)} />
-      </div>
-      <div>
-        <Link to={"/"}>Home</Link>
-        <Link to={"/new"}>New</Link>
-        <Link to={"/diary"}>Diary</Link>
 
-        {/* a 태그는 페이지의 깜빡임이 존재 => SPA 방식이 아니다. */}
-        {/* <a href="/">Home</a>
-        <a href="/new">New</a>
-        <a href="/diary">DIary</a> */}
-        <button onClick={onClickButton}>New 페이지로 이동</button>
-      </div>
+      <Header
+        title={"Header"}
+        leftChild={<Button text={"left"} />}
+        rightChild={<Button text={"right"} />}
+      />
+
+      <Button
+        text={"123"}
+        type={"default"}
+        onClick={() => console.log("asdfasdf")}
+      />
+      <Button
+        text={"123"}
+        type={"positive"}
+        onClick={() => console.log("asdfasdf")}
+      />
+      <Button
+        text={"123"}
+        type={"negative"}
+        onClick={() => console.log("asdfasdf")}
+      />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />
