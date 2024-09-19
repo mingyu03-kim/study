@@ -3,6 +3,6 @@
     // 컴파일 시 옵션.
     "allowJs": true, // js 파일 허용여부.
     "checkJs": true, // @ts-check 같은 역할.
-    "noImplicitAny": true // 모든 타입에 대해 기본적으로 any라도 넣어야 함.
+    "noImplicitAny": true // 모든 타입에 대해 기본적으로 any라도 넣어야 함을 의미. (타입 없이는 사용 못하게)
   }
 }
