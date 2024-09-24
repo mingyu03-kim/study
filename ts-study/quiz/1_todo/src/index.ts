@@ -1,7 +1,24 @@
-let todoItems: any;
+// 타입 정의
+// type Todo = {
+//   id: number;
+//   title: string,
+//   done: boolean
+// }
+
+// 인터페이스 정의 ***
+interface Todo {
+  id: number;
+  title: string;
+  done: boolean;
+}
+
+// 할일 목록의 배열.
+
+
+let todoItems: Todo[];
 
 // api
-function fetchTodoItems(): Array<object> {
+function fetchTodoItems(): Todo[] {
   const todos = [
     { id: 1, title: '안녕', done: false },
     { id: 2, title: '타입', done: false },
@@ -11,12 +28,12 @@ function fetchTodoItems(): Array<object> {
 }
 
 // crud methods
-function fetchTodos(): Array<object> {
+function fetchTodos(): Todo[] {
   const todos = fetchTodoItems();
   return todos;
 }
 
-function addTodo(todo: any): void {
+function addTodo(todo: Todo): void {
   todoItems.push(todo);
 }
 
@@ -24,17 +41,17 @@ function deleteTodo(index: number): void {
   todoItems.splice(index, 1);
 }
 
-function completeTodo(index: number, todo: any): void {
+function completeTodo(index: number, todo: Todo): void {
   todo.done = true;
   todoItems.splice(index, 1, todo);
 }
 
 // business logic
-function logFirstTodo(): object {
+function logFirstTodo(): Todo {
   return todoItems[0];
 }
 
-function showCompleted(): Array<object> {
+function showCompleted(): Todo[] {
   return todoItems.filter((item: any) => item.done);
 }
 
