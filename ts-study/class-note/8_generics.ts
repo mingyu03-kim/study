@@ -70,3 +70,25 @@ const b = logText1(10);
 b.toFixed(2);
 const c = logText1<boolean>(true);
 c.valueOf();
+
+
+
+interface Dropdown {
+    value: string;
+    selected: boolean;
+}
+
+// value는 String만 가능하다.
+// const obj: Dropdown = {value: 1, selected: true};
+const obj1: Dropdown = {value: 'str', selected: true};
+
+// 인터페이스에 제네릭 선언하기
+interface Dropdown2<T> {
+    value: T;
+    selected: boolean;
+}
+
+
+// value 타입은 선언 시 지정이 가능하다.
+const obj3: Dropdown2<number> = {value: 1, selected: true};
+const obj4: Dropdown2<string> = {value: 'str', selected: true};
