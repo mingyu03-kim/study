@@ -42,8 +42,20 @@ interface Pers {
     age: number;
 }
 
-function askSomeone(someone: Develop | Pers) {
-    // union type이라, 공통된 속성(에러가 안 나도록 보장되는 속성)만 접근이 가능하다.
-    // someone.age = 12;
-    someone.name = 'asdf';
+// function askSomeone(someone: Develop | Pers) {
+//     // union type이라, 공통된 속성(에러가 안 나도록 보장되는 속성)만 접근이 가능하다.
+//     // someone.age = 12;
+//     someone.name = 'asdf';
+// }
+
+
+// intersection type
+// never 속성 = 절대 가능할 수 없는 타입.
+var capt: string & number & boolean;
+
+// Develop과 Pers의 모든 속성을 갖고 있다고 판단한다.
+function askSomeone(someone: Develop & Pers) {
+    someone.name;
+    someone.skill;
+    someone.age;
 }
