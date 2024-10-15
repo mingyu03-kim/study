@@ -23,21 +23,33 @@ logText<string>('하이');
 // 제네릭의 장점?
 // => 함수로는 계속 타입을 다른 것이라고 선언해줘야 하므로
 // 중복 선언이 필요하다.
-function logText1(text: string) {
+// function logText1(text: string) {
+//     console.log(text);
+//     text.split('').reverse().join();
+//     return text;   
+// }
+
+// logText1('a');
+// logText1(10);
+// logText1(true);
+
+// function logNumber(text: number) {
+//     console.log(text);
+//     return text;   
+// }
+
+// logNumber('a');
+// logNumber(10);
+// logNumber(true);
+
+
+// Union type은 ?
+// 문제 1. string, number가 동시에 접근가능한 method만 허용.
+function logText1(text: string | number) {
     console.log(text);
-    text.split('').reverse().join();
     return text;   
 }
 
-logText1('a');
-logText1(10);
-logText1(true);
-
-function logNumber(text: number) {
-    console.log(text);
-    return text;   
-}
-
-logNumber('a');
-logNumber(10);
-logNumber(true);
+// 문제 2. 아래 두개의 타입이 보장이 안된다.
+const a = logText1('a');
+const b = logText1(10);
