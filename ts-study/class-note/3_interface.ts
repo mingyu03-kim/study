@@ -27,3 +27,57 @@ const capt = {
 }
 
 getUser(capt);
+
+// 함수의 스펙에 인터페이스를 활용
+interface SumFunction {
+    (a: number, b: number): number;
+}
+
+var sum: SumFunction;
+sum = function (a: number, b: number): number {
+    return a + b;
+}
+
+// 인덱싱
+interface StringArray {
+    [index: number]: string;
+}
+
+
+var arr: StringArray = ['a', 'b', 'c'];
+// arr[0] = 10; // a
+
+// 딕셔너리 패턴
+interface StringRegexDictionary {
+    [key: string]: RegExp;
+}
+
+var obj: StringRegexDictionary = {
+    sth: /abc/,
+    css: /\.css$/,
+    jsFile: /\.js$/,
+}
+
+// 오류
+// obj['cssFile'] = 'a';
+
+// value는 String이 확정이다.
+Object.keys(obj).forEach(function(value) {
+})
+
+
+// 인터페이스 확장
+interface Person {
+    name: string,
+    age: number;
+}
+
+interface Developer extends Person {
+    language: string;
+}
+
+var dev: Developer = {
+    name: 'asdf',
+    age: 15,
+    language: 'asdf'
+}
