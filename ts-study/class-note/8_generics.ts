@@ -45,11 +45,28 @@ logText<string>('하이');
 
 // Union type은 ?
 // 문제 1. string, number가 동시에 접근가능한 method만 허용.
-function logText1(text: string | number) {
+// function logText1(text: string | number) {
+//     console.log(text);
+//     return text;   
+// }
+
+// 문제 2. 아래 두개의 타입이 보장이 안된다.
+// const a = logText1('a');
+// const b = logText1(10);
+
+
+// 제네릭.
+// 함수이름 옆 T => 파라미터의 타입을 정의.
+function logText1<T>(text: T): T {
     console.log(text);
     return text;   
 }
 
-// 문제 2. 아래 두개의 타입이 보장이 안된다.
-const a = logText1('a');
+// string으로 고정됨.
+const a = logText1<string>('a');
+a.endsWith('1');
+// number로 고정됨
 const b = logText1(10);
+b.toFixed(2);
+const c = logText1<boolean>(true);
+c.valueOf();
