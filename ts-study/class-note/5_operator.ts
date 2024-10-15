@@ -42,11 +42,16 @@ interface Pers {
     age: number;
 }
 
-// function askSomeone(someone: Develop | Pers) {
-//     // union type이라, 공통된 속성(에러가 안 나도록 보장되는 속성)만 접근이 가능하다.
-//     // someone.age = 12;
-//     someone.name = 'asdf';
-// }
+function askSomeone(someone: Develop | Pers) {
+    // union type이라, 공통된 속성(에러가 안 나도록 보장되는 속성)만 접근이 가능하다.
+    // someone.age = 12;
+    someone.name = 'asdf';
+}
+
+// 상대적으로 union이 많이 쓰이는 이유. 
+// 아래 두 가지 방식은 모두 오류가 나지 않음.
+askSomeone({name: '디펠', skill: '웹개발'});
+askSomeone({name: '디펠', age: 15});
 
 
 // intersection type
@@ -54,8 +59,12 @@ interface Pers {
 var capt: string & number & boolean;
 
 // Develop과 Pers의 모든 속성을 갖고 있다고 판단한다.
-function askSomeone(someone: Develop & Pers) {
+function askSomeone1(someone: Develop & Pers) {
     someone.name;
     someone.skill;
     someone.age;
 }
+
+// intersection 속성은, 반드시 Develop & Pers의 **모든** 속성을 갖고 있어야 함.
+askSomeone1({name: '디펠', skill: '웹개발', age: 160});
+askSomeone1({name: '디펠', age: 15, skill: 'test'});
