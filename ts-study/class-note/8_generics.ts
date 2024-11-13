@@ -92,3 +92,49 @@ interface Dropdown2<T> {
 // value 타입은 선언 시 지정이 가능하다.
 const obj3: Dropdown2<number> = {value: 1, selected: true};
 const obj4: Dropdown2<string> = {value: 'str', selected: true};
+
+
+// 제네릭의 타입제한
+function logTextLength<T>(text: T[]): T[] {
+    // 타입스크립트 입장에서는 T가 뭔지를 모른다.
+    // => 타입에 대한 힌트를 줘야 한다.
+    console.log(text.length);
+    return text;
+}
+
+logTextLength(['hi']);
+
+
+
+// 제네릭 타입제한 2
+interface LengthType {
+    length: number;   
+}
+
+function logTextLength2<T extends LengthType>(text: T): T {
+    text.length;
+    return text;
+}
+
+logTextLength2('asdf');
+// logTextLength2(10); // 불가 - length 속성이 없기때문.
+logTextLength2({length: 10, ttt: 50});
+
+
+
+// 제네릭 타입제한 3 - keyOf
+interface ShoppingItem {
+    name: string;
+    price: number;
+    stock: number;
+}
+
+// keyof => 타입을, shoppingItem 의 키값 중 하나여야 한다.
+function getShoppingItemOption<T extends keyof ShoppingItem>(itemOption: T): T {
+    return itemOption;
+}
+
+// getShoppingItemOption(10);
+// getShoppingItemOption('asdf');
+// getShoppingItemOption({as: 10});
+getShoppingItemOption("price");
