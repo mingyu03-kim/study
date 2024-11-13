@@ -1,20 +1,4 @@
-interface PhoneNumberDictionary {
-  [phone: string]: {
-    num: number;
-  };
-}
-
-interface Contact {
-  name: string;
-  address: string;
-  phones: PhoneNumberDictionary;
-}
-
-enum PhoneType {
-  Studio = 'studio',
-  Office = 'office',
-  Home = 'home',
-}
+import {Contact, PhoneNumberDictionary, PhoneType} from './phoneNumberDictionaryType';
 
 // api
 // TODO: 아래 함수의 반환 타입을 지정해보세요.
