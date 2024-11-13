@@ -10,6 +10,12 @@ interface Contact {
   phones: PhoneNumberDictionary;
 }
 
+enum PhoneType {
+  Studio = 'studio',
+  Office = 'office',
+  Home = 'home',
+}
+
 // api
 // TODO: 아래 함수의 반환 타입을 지정해보세요.
 function fetchContacts(): Promise<Contact[]> {
@@ -61,6 +67,7 @@ class AddressBook {
 
   constructor() {
     this.fetchData();
+    this.findContactByPhone(123123123, PhoneType.Home);
   }
 
   fetchData():void {
@@ -78,7 +85,9 @@ class AddressBook {
     return this.contacts.filter(contact => contact.address === address);
   }
 
-  findContactByPhone(phoneNumber:number, phoneType: string): Contact[] {
+  // Enum을 활용하여, phoneType을 정의할 수 있다. 
+  // 현재는 데이터에 home, office, studio 만 있기 때문.
+  findContactByPhone(phoneNumber:number, phoneType: PhoneType): Contact[] {
     return this.contacts.filter(
       contact => contact.phones[phoneType].num === phoneNumber
     );
