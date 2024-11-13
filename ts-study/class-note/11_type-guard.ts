@@ -28,3 +28,14 @@ if ((tony as Developer).skill) {
     var age = (tony as Person).age;
     console.log(age);
 }
+
+
+// 타입가드 적용
+function isDeveloper(target: Developer | Person): target is Developer {
+    return (target as Developer).skill !== undefined;
+}
+
+// 2개 타입밖에 없으므로 else 문에는 Person으로 추론하게 된다.
+if (isDeveloper(tony)) {
+    tony.skill;
+} else tony.age;
