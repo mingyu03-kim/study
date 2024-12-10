@@ -15,7 +15,7 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
 export default function Page({book}:InferGetServerSidePropsType<typeof getServerSideProps>) {
     if (!book) return '문제발생';
-    const {id, title, subTitle, description, author, publisher, coverImgUrl} = book;
+    const {title, subTitle, description, author, publisher, coverImgUrl} = book;
     return <div className={style.container}>
         <div 
             className={style.cover_img_container}

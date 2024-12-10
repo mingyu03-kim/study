@@ -18,6 +18,7 @@ export default function BookItem({
             <div className={style.subTitle}>{subTitle}</div>
             <br />
             <div className={style.author}>{author} | {publisher}</div>
+            <div className={style.description}>{description}</div>
         </div>
     </Link>
 }
