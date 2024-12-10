@@ -1,7 +1,6 @@
 import SearchableLayout from "@/components/searchable";
 import { ReactNode, useEffect, useState } from "react";
 import BookItem from "@/components/book-item";
-import { GetStaticPropsContext, InferGetServerSidePropsType } from "next";
 import fetchBooks from "@/lib/fetch-books";
 import { useRouter } from "next/router";
 import { BookData } from "../../../types";
@@ -43,7 +42,7 @@ export default function Page() {
     useEffect(() => {
         if (q) fetchSearchResult();
     }, [q]);
-    
+
     return <div>
         {books.map((book) => <BookItem key={book.id} {...book} />)}
     </div>;
