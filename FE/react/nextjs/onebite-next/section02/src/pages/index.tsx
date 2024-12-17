@@ -33,7 +33,8 @@ export const getStaticProps = async () => {
     props: { // 반드시 props를 반환해야 한다.
       allBooks,
       recoBooks
-    }
+    },
+    revalidate: 3, // ISR 사용을 위한 property. 3초 주기로 재검증
   }
 };
 
