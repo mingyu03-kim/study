@@ -4,7 +4,7 @@ import BookItem from "@/components/book-item";
 import fetchBooks from "@/lib/fetch-books";
 import { useRouter } from "next/router";
 import { BookData } from "../../../types";
-
+import Head from "next/head";
 // export const getServerSideProps = async (context: GetServerSidePropsContext) => {
 //     const q = context.query.q;
 //     const books = await fetchBooks(q as string);
@@ -44,6 +44,13 @@ export default function Page() {
     }, [q]);
 
     return <div>
+        <Head>
+            {/* 메타 태그 작성할 수 있다. */}
+            <title>검색</title>
+            <meta property="og:image" content="/thumbnail.png" />
+            <meta property="og:title" content="검색결과" />
+            <meta property="og:description" content="도서관에 있는 책들" />
+        </Head>
         {books.map((book) => <BookItem key={book.id} {...book} />)}
     </div>;
 }
