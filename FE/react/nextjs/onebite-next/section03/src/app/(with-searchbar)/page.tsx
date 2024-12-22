@@ -1,21 +1,22 @@
-// "use client"; // client 컴포넌트로 선언하는 코드.
-
-import ClientComponent from "@/components/client-component";
-import styles from "./page.module.css";
-import ServerComponent from "../../components/server-component";
+import BookItem from "@/components/book-item";
+import style from "./page.module.css";
+import books from "@/mock/books.json";
 
 export default function Home() {
-  // console.log("Home 컴포넌트 실행");
-
-  // 브라우저에서만 동작하기 때문에, 해당 훅 사용 불가.
-  // useEffect(() => {});
-
   return (
-    <div className={styles.page}>
-      인덱스 페이지
-      <ClientComponent>
-        <ServerComponent />
-      </ClientComponent>
+    <div className={style.container}>
+      <section>
+        <h3>지금 추천하는 도서</h3>
+        {books.map((book) => (
+          <BookItem key={book.id} {...book} />
+        ))}
+      </section>
+      <section>
+        <h3>등록된 모든 도서</h3>
+        {books.map((book) => (
+          <BookItem key={book.id} {...book} />
+        ))}
+      </section>
     </div>
   );
 }
